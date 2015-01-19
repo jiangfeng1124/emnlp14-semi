@@ -1,5 +1,5 @@
-#Embedding Features for Semi-supervised Learning
-Jiang Guo, jguo@ir.hit.edu.cn
+##Embedding Features for Semi-supervised Learning
+Author: Jiang Guo, jguo@ir.hit.edu.cn
 
 This tool is used for semi-supervised learning of NER,
 using various kinds of embedding features. This tool is
