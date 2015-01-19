@@ -7,10 +7,10 @@ associated with (Guo et al., 2014). The proposed approaches
 are shown to be much better than the direct usage of
 continuous word embedding features.
 
-###Requirements:-
+###Requirements:
 1. [CRFSuite](https://github.com/chokkan/crfsuite)
 
-###Data you need:-
+###Data you need:
 1. [CoNLL-2003 NER dataset](http://www.clips.ua.ac.be/conll2003/ner/)
 
 The original dataset should be converted to BIO-style annotation.
