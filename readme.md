@@ -17,18 +17,23 @@ The original dataset should be converted to BIO-style annotation.
 
 ###Training an NER tagger
 1. use continuous embedding features
+
 ```./train.sh de```
 
 2. use binarized embedding features
+
 ```./train.sh bi```
 
 3. use clustered embedding features
+
 ```./train.sh ce```
 
 4. use distributional prototype features
+
 ```./train.sh proto```
 
 ###Testing
+
 ```./tag.sh [de|bi|ce|proto]```
 
 ###Reference
