@@ -29,7 +29,7 @@ def apply_templates(X, templates):
                 if p not in range(len(X)):
                     values = []
                     break
-                if field.startswith('se') and X[p][field] == '0':
+                if field.startswith('se') and X[p][field] == 0:
                     continue
                 if field.startswith('bi') and X[p][field] == '0':
                     continue

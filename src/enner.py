@@ -12,7 +12,9 @@ separator = ' '
 # fields = 'y w pos chk'
 fields = 'w pos chk y'
 
-de_dimension = 50
+de_dimension = 300
+se_dimension = 3000
+# se_dimension = 9
 
 import crfutils
 from numpy import zeros
@@ -238,9 +240,16 @@ def observation(v, defval=''):
             for prefix in [2,4,6,8,10,12,14,16]:
                 v['brown-p%d' % prefix] = defval
     if 'de' in W:
+        # print >> sys.stderr, "append dense emb"
         emb = dense_emb[v['wl']] if v['wl'] in dense_emb else map(int, zeros(de_dimension))
         for i in xrange(de_dimension):
             name = "de%d" % (i)
+            v[name] = emb[i]
+    if 'se' in W:
+        # print >> sys.stderr, "append dense emb"
+        emb = sparse_emb[v['wl']] if v['wl'] in sparse_emb else map(int, zeros(se_dimension))
+        for i in xrange(se_dimension):
+            name = "se%d" % (i)
             v[name] = emb[i]
     if 'ce500' in W: ## ce1000, ce2000 should be in
         if v['wl'] in cluster_emb:
@@ -302,6 +311,8 @@ if emb_type == "bc":
     W.append('brown-p16')
 if emb_type == "de":
     W.append('de')
+if emb_type == "se":
+    W.append('se')
 if emb_type == "ce":
     W.append('ce500')
     W.append('ce1000')
@@ -415,6 +426,10 @@ for name in W:
         for i in xrange(de_dimension):
             key = "%s%d" % (name, i)
             templates += [((key, i),) for i in range(-2, 3)]
+    elif name == "se":
+        for i in xrange(se_dimension):
+            key = "%s%d" % (name, i)
+            templates += [((key, i),) for i in range(-2, 3)]
     elif name == "bi":
         for i in xrange(de_dimension):
             key = "%s%d" % (name, i)
@@ -423,6 +438,7 @@ for name in W:
 cluster_brown = {}
 cluster_emb = {}
 dense_emb = {}
+sparse_emb = {}
 prototypes = {}
 binarized_emb = {}
 
@@ -451,11 +467,24 @@ def load_prototypes(path, sep="\t"):
 ### load embedding features
 ### including dense embedding and sparse embedding.
 def load_dense_emb(path, sep=' '):
-    for l in open(path, "r"):
+    # global de_dimension
+    for i,l in enumerate(open(path, "r")):
+        # print >> sys.stderr, "\r%d" % (i),
         l = l.strip().split(sep)
         embs = map(float, l[1:])
+        # if i == 0:
+        #     de_dimension = len(embs)
         embs = scale(embs, metric="normalize")
         dense_emb[l[0]] = embs
+    # print >> sys.stderr
+
+def load_sparse_emb(path, sep=' '):
+    for i,l in enumerate(open(path, "r")):
+        print >> sys.stderr, "\r%d" % (i),
+        l = l.strip().split(sep)
+        embs = map(float, l[1:])
+        sparse_emb[l[0]] = embs
+    print >> sys.stderr
 
 def load_binarized_emb(path, sep=' '):
     for l in open(path, "r"):
@@ -492,7 +521,8 @@ def feature_extractor(X):
         X[-1]['F'].append('__EOS__')
 
 binarize_dir  = "./data/binarize/"
-emb_dir       = "./data/emb-wiki/"
+#emb_dir       = "./data/emb-wiki/"
+emb_dir       = "./data/emb-manaal"
 brown_dir     = "./data/brown/"
 kmcluster_dir = "./data/kmcluster/"
 proto_dir     = "./data/proto/code/"
@@ -513,7 +543,12 @@ if __name__ == '__main__':
     if 'brown' in W:
         load_cluster_brown(os.path.join(brown_dir, "paths"))
     if 'de' in W:
-        load_dense_emb(os.path.join(emb_dir, "w2v.txt"))
+        # load_dense_emb(os.path.join(emb_dir, "w2v.txt"))
+        # print >> sys.stderr, "load word embeddings"
+        load_dense_emb(os.path.join(emb_dir, "glove_6B_300.txt"))
+    if 'se' in W:
+        load_sparse_emb(os.path.join(emb_dir, "glove_300_3000_l1-1_l2_1e-5"))
+        # load_sparse_emb(os.path.join(emb_dir, "sample"))
     if 'ce500' in W:
         load_compound_cluster_emb(
                 os.path.join(kmcluster_dir, "ccompound.txt"))
