@@ -8,29 +8,23 @@ are shown to be much better than the direct usage of
 continuous word embedding features.
 
 ###Requirements:
-1. [CRFSuite](https://github.com/chokkan/crfsuite)
+* [CRFSuite](https://github.com/chokkan/crfsuite)
 
 ###Data you need:
-1. [CoNLL-2003 NER dataset](http://www.clips.ua.ac.be/conll2003/ner/)
+* [CoNLL-2003 NER dataset](http://www.clips.ua.ac.be/conll2003/ner/)
 
 The original dataset should be converted to BIO-style annotation.
 
 ###Training an NER tagger
-1. use continuous embedding features
 
-``` $ ./train.sh de```
+``` $ ./train.sh [de|bi|ce|proto] ```
 
-2. use binarized embedding features
+* de: dense embedding features
+* bi: binarized embedding features
+* ce: clustered features
+* proto: distributional prototype features
 
-``` $ ./train.sh bi```
-
-3. use clustered embedding features
-
-``` $ ./train.sh ce```
-
-4. use distributional prototype features
-
-``` $ ./train.sh proto```
+To use the combined features, e.g. ```de+proto```
 
 ###Testing
 
