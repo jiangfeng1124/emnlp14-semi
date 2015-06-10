@@ -19,10 +19,10 @@ The original dataset should be converted to BIO-style annotation.
 
 ``` $ ./train.sh [de|bi|ce|proto] ```
 
-* de: dense embedding features
-* bi: binarized embedding features
-* ce: clustered features
-* proto: distributional prototype features
+* ```de``` - dense embedding features
+* ```bi``` - binarized embedding features
+* ```ce``` - clustered features
+* ```proto``` - distributional prototype features
 
 To use the combined features, e.g. ```de+proto```
 
