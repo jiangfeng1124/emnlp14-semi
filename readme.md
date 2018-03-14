@@ -1,4 +1,4 @@
-##Embedding Features for Semi-supervised Learning
+## Embedding Features for Semi-supervised Learning
 Author: Jiang Guo, jguo@ir.hit.edu.cn
 
 This tool is used for semi-supervised learning of NER,
@@ -7,15 +7,15 @@ associated with (Guo et al., 2014). The proposed approaches
 are shown to be much better than the direct usage of
 continuous word embedding features.
 
-###Requirements:
+### Requirements:
 * [CRFSuite](https://github.com/chokkan/crfsuite)
 
-###Data you need:
+### Data you need:
 * [CoNLL-2003 NER dataset](http://www.clips.ua.ac.be/conll2003/ner/)
 
 The original dataset should be converted to BIO-style annotation.
 
-###Training an NER tagger
+### Training an NER tagger
 
 ``` $ ./train.sh [de|bi|ce|proto] ```
 
@@ -26,11 +26,11 @@ The original dataset should be converted to BIO-style annotation.
 
 To use the combined features, e.g. ```de+proto```
 
-###Testing
+### Testing
 
 ``` $ ./tag.sh [de|bi|ce|proto]```
 
-###Reference
+### Reference
 
 ```
 @InProceedings{guo-EtAl:2014:EMNLP2014,
